@@ -15,6 +15,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from api.routes.regis import bpRegis
 from api.routes.main import bpMain
+from api.routes.auth import bpAuth
 from api.routes.taller import bpTaller
 from api.routes.artic import bpArticulo
 from api.routes.comunic import bpComunicacion
@@ -56,6 +57,7 @@ CORS(app)
 # Add all endpoints form the API with a "api" prefix
 #app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
+app.register_blueprint(bpAuth)
 app.register_blueprint(bpRegis, url_prefix='/api')
 app.register_blueprint(bpTaller, url_prefix='/api')
 app.register_blueprint(bpArticulo, url_prefix='/api')
