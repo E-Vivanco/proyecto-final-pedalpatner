@@ -1,4 +1,3 @@
-# aqui se deben agregar login + logout
 import datetime
 from api.models import User, Rol, Taller
 from flask import Blueprint, request, jsonify
@@ -8,7 +7,7 @@ from werkzeug.security import check_password_hash
 bpAuth = Blueprint('bpAuth', __name__)
 
 @bpAuth.route('/login', methods=['POST'])
-def login():
+def login_z():
     email = request.json.get('email')
     password = request.json.get('password')
 
@@ -19,7 +18,7 @@ def login():
 
     user = User.query.filter_by(email=email).first()
 
-    expire = datetime.timedelta(hours=2)
+    token_expires = datetime.timedelta(hours=2)
     access_token = create_access_token(identity=user.id, expires_delta= token_expires)
 
     data = {
@@ -28,4 +27,6 @@ def login():
     "token_expires": token_expires.total_seconds()
     }
 
-    return jsonify({ "status": 200, "message": "You have been logged"})
+    return jsonify({ "status": 200, "message": "You have been logged", "data": data}), 200
+
+# Logout debe ser hecho desde flux (front)
